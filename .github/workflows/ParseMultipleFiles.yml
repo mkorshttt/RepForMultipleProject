@@ -13,8 +13,8 @@ jobs:
         id: date
         run: |
                string s = Datetime.Now;
-               $env.NOW = !DateTime.TryParseExact(s,"yyyyMMdd",CultureInfo.InvariantCulture,DateTimeStyles.AssumeUniversal,out result)
-               echo $env.NOW
+       
+               echo s
       
       
 
