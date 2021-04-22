@@ -9,10 +9,19 @@ jobs:
     steps:    
       - name: Get current date
         id: date
-        run: echo "NOW=$(date +'DateTime.Now.TryParseExact(s,"yyyyMMdd",CultureInfo.InvariantCulture,DateTimeStyles.AssumeUniversal,out result)')" >> $GITHUB_ENV
-      
-      - name: Test with environment variables
-        run: echo ${{ env.NOW }}
+        run: |
+          mkdir DateTime
+          echo $(date '+%H:%M:%S') > DateTime/DateTime.txt
+          cat DateTime/DateTime.txt
+      - name: Cache DateTime
+        if: github.event_name == 'pull_request'
+        uses: actions/cache@v1
+        with:
+          path: DateTime
+          key: datetime-${{ github.event_name }}-${{ github.event.number }}-{{ github.sha }}
+          restore-keys: |
+           datetime-${{ github.event_name }}-${{ github.event.number }}
+      - name: Compare DateTime
              
       
 
