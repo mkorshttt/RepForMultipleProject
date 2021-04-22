@@ -13,9 +13,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - name: ReadFiles
-      - name: Parse files 
-        shell: cmd
       - name: Get current date
         id: date
         run: echo "NOW=$(date +'%Y%m%dT%H:%M')" >> $GITHUB_ENV
