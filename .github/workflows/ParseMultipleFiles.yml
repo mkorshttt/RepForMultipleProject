@@ -12,8 +12,8 @@ jobs:
             NOW: 0
         id: date
         run: |
-          echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
-          echo ${{ env.NOW }}
+               $env.NOW = !DateTime.TryParseExact(s,"yyyyMMdd",CultureInfo.InvariantCulture,DateTimeStyles.AssumeUniversal,out result)
+               echo $env.NOW
       
       
 
