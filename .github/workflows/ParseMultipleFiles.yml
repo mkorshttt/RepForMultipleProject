@@ -14,7 +14,7 @@ jobs:
           echo $(date '+%H:%M:%S') > DateTime/DateTime.txt
           cat DateTime/DateTime.txt
       - name: Cache DateTime
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'push'
         uses: actions/cache@v1
         with:
           path: DateTime
