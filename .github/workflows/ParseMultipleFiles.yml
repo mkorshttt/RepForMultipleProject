@@ -20,7 +20,8 @@ jobs:
          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
          YEAR: "${{ steps.current-time.outputs.year }}"
          DAY: "${{ steps.current-time.outputs.day }}"
-      
+        run: 
+          echo $env.F_TIME
 
 
     
