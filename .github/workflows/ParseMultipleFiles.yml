@@ -40,6 +40,6 @@ jobs:
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: '${{ github.workspace }}\MyProject\project.json'
+           path: '${{ github.workspace }}\MyProject\SFDC\project.json'
            prop_path: 'projectVersion'
       - run: echo ${{steps.version.outputs.prop}} 
