@@ -38,7 +38,7 @@ jobs:
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: ${{env.PATH }}
+           path: ${{env.PATH}}
            prop_path: 'projectVersion'
            if: github.ref == 'refs/heads/main'
       - run: echo ${{steps.version.outputs.prop}}
