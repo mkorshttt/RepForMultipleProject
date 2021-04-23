@@ -28,7 +28,7 @@ jobs:
                            if($package.Name -match 'project.json')
                            {
                            $PATH = ${package.FullName}
-                           ${{ jobs.version.GetVersionFromJson }}
+                           ${{ steps.version.GetVersionFromJson }}
                            }
                        }
           
