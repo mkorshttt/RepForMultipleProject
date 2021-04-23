@@ -27,6 +27,11 @@ jobs:
                        {    
                            if($package.Name -match 'project.json')
                            {
+                           $PATH = ${package.FullName}
+                           ${{ jobs.version.GetVersionFromJson }}
+                           }
+                       }
+          
       - name:  GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
@@ -35,6 +40,7 @@ jobs:
            prop_path: 'projectVersion'
            if: github.ref == 'refs/heads/main'
       - run: echo ${{steps.version.outputs.prop}}
+      
       - name: Version Incrment
         env:
             VERSION: ${{steps.version.outputs.prop}}
@@ -43,7 +49,4 @@ jobs:
                $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1),"${{ steps.current-time.outputs.formattedTime }}"
                $VERSION=[string]$newversion
                echo $VERSION
-                              $PATH = ${package.FullName}
-                           }
-                       }
-          
+                              
