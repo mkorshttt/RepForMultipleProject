@@ -29,8 +29,9 @@ jobs:
 
       - name: create temp file
         run: |
-                Get-ChildItem -Path ${{ github.workspace }}
-                foreach {
+                
+                foreach( $package in (Get-ChildItem -Path ${{ github.workspace }}))
+                {
                       console.log($_.FullName)
                          if((Get-Content $_.FullName) -match 'project')
                             {
