@@ -32,6 +32,5 @@ jobs:
         env:
             VERSION: ${{steps.version.outputs.prop}}
         run: |
-               $v= [version] ${{steps.version.outputs.prop}}
-               Write-Host "$v"
+               $v= [version] "${{steps.version.outputs.prop}}"
                echo $v
