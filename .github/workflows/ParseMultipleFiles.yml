@@ -30,9 +30,11 @@ jobs:
         run: |
                Get-ChildItem ${{ github.workspace }}\MyProject -Recurse -Filter *.json -File | 
                foreach {
+               
+                         console.log($_.FullName)
                          if((Get-Content $_.FullName) -match 'project')
                             {
-                         echo  $_.FullName
+                         console.log($_.FullName)
                             }
                        }
                 
