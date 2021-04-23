@@ -35,5 +35,5 @@ jobs:
                $v = [version]$env.VERSION
                echo $v
                $newversion = "{0}.{1}.{2}" -f $v.Major,$v.Minor,($v.Build+1)
-               $env.VERSION =[string] $newversion
+               $VERSION =[string] $newversion
                echo $env.VERSION
