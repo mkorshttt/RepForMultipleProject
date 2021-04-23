@@ -31,7 +31,7 @@ jobs:
         run: |
                 
                 
-                foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter 'project.json' -Directory)
+                foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter 'project.json' -Files)
                        {    
                          echo ($package.Name)
                          if((Get-Content $package.Name) -match 'project.json')
