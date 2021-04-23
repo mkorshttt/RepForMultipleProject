@@ -36,6 +36,7 @@ jobs:
     # output format - either json, csv or separated by line-breaks
       - name: Echo
         run: echo ${{ steps.get_changed.outputs.changed }}
+        
 
     
          
