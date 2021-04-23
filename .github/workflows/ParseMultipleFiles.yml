@@ -32,7 +32,7 @@ jobs:
                foreach {
                          if((Get-Content $_.FullName) -match 'project')
                             {
-                           $_.FullName
+                         echo  $_.FullName
                             }
                        }
                 
