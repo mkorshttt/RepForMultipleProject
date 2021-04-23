@@ -15,18 +15,8 @@ jobs:
          utcOffset: "+08:00"
       - name: Use current time
         env:
-         MAJOR: 1
-         MINOR: 0
-         BUILD: ${{github.run_number}}
-         TIME: "${{ steps.current-time.outputs.time }}"
-         R_TIME: "${{ steps.current-time.outputs.readableTime }}"
          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-         YEAR: "${{ steps.current-time.outputs.year }}"
-         DAY: "${{ steps.current-time.outputs.day }}"
-         PATH: 0
-        run: |
-          echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}}
-          
+         PATH: 0      
       - uses: actions/checkout@v2
       - name: create temp file
         run: |
@@ -36,13 +26,14 @@ jobs:
                            {
       - name:  GetVersionFromJson
                               $PATH = $package.FullName
+                              echo $PATH
                            }
                        }
       - name: GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: '$PATH'
+           path: $PATH
            prop_path: 'projectVersion'
            if: github.ref == 'refs/heads/main'
       - run: echo ${{steps.version.outputs.prop}}
@@ -54,3 +45,4 @@ jobs:
                $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1),"${{ steps.current-time.outputs.formattedTime }}"
                $VERSION=[string]$newversion
                echo $VERSION
+               echo $PATH
