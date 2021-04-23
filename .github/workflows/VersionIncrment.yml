@@ -30,9 +30,9 @@ jobs:
       - run: echo ${{steps.version.outputs.prop}}
       - name: Version Incrment
         env:
-            VERSION: 0
+            VERSION: ${{steps.version.outputs.prop}}
         run: |
-               $v = [version]${{steps.version.outputs.prop}}
+               $v = [version]$env.VERSION
                echo $v
                $newversion = "{0}.{1}.{2}" -f $v.Major,$v.Minor,($v.Build+1)
                $env.VERSION =[string] $newversion
