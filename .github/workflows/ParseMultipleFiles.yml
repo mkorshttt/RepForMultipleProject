@@ -23,6 +23,7 @@ jobs:
          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
          YEAR: "${{ steps.current-time.outputs.year }}"
          DAY: "${{ steps.current-time.outputs.day }}"
+         PATH: 0
         run: |
           echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}}
           
@@ -33,20 +34,24 @@ jobs:
                        {    
                            if($package.Name -match 'project.json')
                            {
-                                echo  $package.FullName
+                              name:  GetVersionFromJson
+                              runs-on: windows-latest
+                              $PATH : $package.FullName
                            }
                        }
       - name: GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: '${{ github.workspace }}\MyProject\SFDC\project.json'
+           path: '$PATH'
            prop_path: 'projectVersion'
            if: github.ref == 'refs/heads/main'
       - run: echo ${{steps.version.outputs.prop}}
       - name: Version Incrment
         env:
-            VERSION: 0
+            VERSION: ${{steps.version.outputs.prop}}
         run: |
-               $v = [version] ${{steps.version.outputs.prop}}
-               $newversion = "{0}.{1}.{2}" -f $v.Major,$v.Minor,($v.Build+1)
+               $v= [version] "${{steps.version.outputs.prop}}"
+               $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1),"${{ steps.current-time.outputs.formattedTime }}"
+               $VERSION=[string]$newversion
+               echo $VERSION
