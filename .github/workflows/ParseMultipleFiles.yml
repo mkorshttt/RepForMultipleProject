@@ -25,24 +25,13 @@ jobs:
          DAY: "${{ steps.current-time.outputs.day }}"
         run: |
           echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}}
- 
-      - uses: actions/checkout@v1
 
       - name: create temp file
         run: |
-          mkdir tmp
-            echo "project.json" > tmp/version
- 
-      - uses: GenesisSam/get-simple-file-action@v1.0.5
-        id: openFile
-        with:
-         file-name: ${{ 'tmp/version' }}
-
-      - name: result
-        if: success() && steps.openFile.outputs.data
-        run: echo "tmp/version> ${ steps.openFile.outputs.data }"
-    
-        
+               pwsh: "$json = Get-ChildItem -File $filePath -Recurse | 
+                             Where-Object { $_.LastWriteTime -gt [DateTime] $filesNewerThan } |
+                             ForEach-Object { Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json }"   
+                
 
     
          
