@@ -31,7 +31,7 @@ jobs:
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                        {    
-                           if($package.Name -match 'project.json')
+                           if($package.Name -match 'project.json'){}
       - name: GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
