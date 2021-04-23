@@ -36,5 +36,6 @@ jobs:
                $Build = $v.Build
                $Minor = $v.Minor
                $Major = $v.Major
-               [string] $value="{0}.{1}.{2}" -f ($v.Major.$v.Minor.$v.Build+1)
-               echo $value
+               $value="{0}.{1}.{2}" -f ($v.Major.$v.Minor.$v.Build+1)
+               $VERSION=[string] $value
+               echo $VERSION
