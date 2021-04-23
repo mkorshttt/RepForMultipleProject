@@ -1,6 +1,6 @@
 name: ParseMultipleFiles
 on:
-  push:
+  pull_request_target:
     branches: [ main ]
   workflow_dispatch:
 jobs:
@@ -42,4 +42,11 @@ jobs:
         with: 
            path: '${{ github.workspace }}\MyProject\SFDC\project.json'
            prop_path: 'projectVersion'
-      - run: echo ${{steps.version.outputs.prop}} 
+           if: github.ref == 'refs/heads/main'
+      - run: echo ${{steps.version.outputs.prop}}
+      - name: Version Incrment
+        env:
+            VERSION: 0
+        run: |
+               $v = [version] ${{steps.version.outputs.prop}}
+               $newversion = "{0}.{1}.{2}" -f $v.Major,$v.Minor,($v.Build+1)
