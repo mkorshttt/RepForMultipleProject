@@ -28,7 +28,7 @@ jobs:
 
       - name: create temp file
         run: |
-               Get-ChildItem -File ${{ github.workspace }}\MyProject -Recurse -Filter *.json -File | 
+               Get-ChildItem ${{ github.workspace }}\MyProject -Recurse -Filter *.json -File | 
                foreach {
                          if((Get-Content $_.FullName) -match 'project')
                             {
