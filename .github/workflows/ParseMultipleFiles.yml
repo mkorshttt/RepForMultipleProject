@@ -34,8 +34,7 @@ jobs:
                        {    
                            if($package.Name -match 'project.json')
                            {
-                              name:  GetVersionFromJson
-                              runs-on: windows-latest
+      - name:  GetVersionFromJson
                               $PATH = $package.FullName
                            }
                        }
