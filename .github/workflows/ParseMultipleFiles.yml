@@ -30,7 +30,7 @@ jobs:
       - name: create temp file
         run: |
                 
-                foreach( $package in (Get-ChildItem -Path ${{ github.workspace }}\MyProject))
+                foreach( $package in (Get-ChildItem -Path ${{ github.workspace }}))
                 {
                       echo ($package.Name)
                              foreach( $packageN in (Get-ChildItem -Path $package.Name))
