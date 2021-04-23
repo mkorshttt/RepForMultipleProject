@@ -25,7 +25,21 @@ jobs:
          DAY: "${{ steps.current-time.outputs.day }}"
         run: |
           echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}}
+          
+      - name: get-changed-folders
+        # You may pin to the exact commit or the version.
+        # uses: Stockopedia/action-get-changed-files@328c7e4ce8d8f40398e7cd03ae4e45df24a6ae70
+        uses: Stockopedia/action-get-changed-files@v1.2
+        with:
+             # github token
+            github-token: ${{secrets.GITHUB_TOKEN}}
+    # output format - either json, csv or separated by line-breaks
+            format: 'json'
+            foldersOnly: false
+
     
+         
+      
           
 
 
