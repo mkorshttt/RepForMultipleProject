@@ -29,12 +29,7 @@ jobs:
       - name: "Check file existence"
         uses: andstor/file-existence-action@v1
         with:
-          files: "package.json"
-             # github token
-            github-token: ${{secrets.GITHUB_TOKEN}}
-    # output format - either json, csv or separated by line-breaks
-      - name: Echo
-        run: echo ${{ steps.get_changed.outputs.changed }}
+           files: "package.json"
         
 
     
