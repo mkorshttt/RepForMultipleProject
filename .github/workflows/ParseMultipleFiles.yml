@@ -30,17 +30,14 @@ jobs:
       - name: create temp file
         shell: cmd
         run: |
-               echo (Get-ChildItem $file | Measure-Object).Count
-                  if((Get-ChildItem $file | Measure-Object).Count -gt 0)
-                        {
-                            foreach ($package in (Get-ChildItem -Path ${{ github.workspace }}\MyProject)) 
-                            { 
-                               if($package.Name.Contains('project'))
-                               {
-                                   echo $package.Name
-                               }
+               foreach ($package in (Get-ChildItem -Path ${{ github.workspace }}\MyProject)) 
+                      { 
+                         if($package.Name.Contains('project'))
+                           {
+                             echo $package.Name
                            }
-                        }
+                      }
+
       
           
 
