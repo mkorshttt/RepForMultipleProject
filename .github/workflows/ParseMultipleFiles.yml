@@ -29,7 +29,7 @@ jobs:
       - name: create temp file
         shell: cmd
         run: |
-               call Get-ChildItem -File ${{ github.workspace }} -Recurse | ForEach-Object { Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json }  
+               call Get-ChildItem -File ${{ github.workspace }} -Recurse 
                 
 
     
