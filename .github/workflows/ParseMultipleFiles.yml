@@ -30,7 +30,7 @@ jobs:
       - name: create temp file
         run: |
                 
-                foreach( $package in (Get-ChildItem -Path ${{ github.workspace }}))
+                foreach( $package in (Get-ChildItem -Path ${{ github.workspace }}\MyProject))
                 {
                       echo ($package.Name)
                          if((Get-Content $package.Name) -match 'project.json')
