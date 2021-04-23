@@ -38,6 +38,7 @@ jobs:
                                {
                                    Write-Host "$package.Name"
                                }
+                           }
                         }
 
     
