@@ -1,35 +1,32 @@
 name: ParseMultipleFiles
 on:
-  push:
+  pull_request:
     branches: [ main ]
   workflow_dispatch:
 jobs:
  Build:
     runs-on: windows-latest
     steps:   
-    
-    
-    
-    
       - name: Get current time
         uses: 1466587594/get-current-time@v2
         id: current-time
         with:
          format: YYMMDDHHmm
          utcOffset: "+08:00"
-         
-         
-         
-         
-         
       - name: Use current time
         env:
+         MAJOR: 1
+         MINOR: 0
+         BUILD: ${{github.run_number}}
+         TIME: "${{ steps.current-time.outputs.time }}"
+         R_TIME: "${{ steps.current-time.outputs.readableTime }}"
          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-         PATH: 0     
-         
-         
-         
-         
+         YEAR: "${{ steps.current-time.outputs.year }}"
+         DAY: "${{ steps.current-time.outputs.day }}"
+         PATH: 0
+        run: |
+          echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}}
+          
       - uses: actions/checkout@v2
       - name: create temp file
         run: |
@@ -38,18 +35,17 @@ jobs:
                            if($package.Name -match 'project.json')
                            {
       - name:  GetVersionFromJson
+                              $PATH = $package.FullName
+                           }
+                       }
+      - name: GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: $PATH
+           path: '$PATH'
            prop_path: 'projectVersion'
            if: github.ref == 'refs/heads/main'
       - run: echo ${{steps.version.outputs.prop}}
-                              $PATH = $package.FullName
-      
-                           }
-                       }
-                       
       - name: Version Incrment
         env:
             VERSION: ${{steps.version.outputs.prop}}
@@ -58,63 +54,3 @@ jobs:
                $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1),"${{ steps.current-time.outputs.formattedTime }}"
                $VERSION=[string]$newversion
                echo $VERSION
-               echo $PATH
-               
-               
-               
-               
-               
-               
-      - name: UiPath Build         
-      - uses: actions/checkout@v2
-      - run: |
-                 New-Item -Path "C:\\" -ItemType "directory" -Name "uipathcli";
-                 Invoke-WebRequest "https://www.myget.org/F/uipath-dev/api/v2/package/UiPath.CLI/1.0.7758.25166" -OutFile "C:\\uipathcli\\cli.zip";
-                 Expand-Archive -LiteralPath "C:\\uipathcli\\cli.Zip" -DestinationPath "C:\\uipathcli";
-                 
-                 
-                 
-                 
-                 
-                 
-      - name: set env
-        id: vars
-        run: |
-              echo "::set-output name=version::$(echo '${{env.major}}.${{env.minor}}.${{github.run_number}}')" 
-              
-              
-              
-              
-              
-              
-      - name: shellcheck 
-        shell: cmd
-        run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\project.json" -o "${{ github.workspace }}" -v "$VERSION" -l en-US
-               
-               
-               
-               
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2.2.0
-        with:	 
-           name: samplerepository
-           path: ${{ github.workspace }}/**
-           if-no-files-found: error
-           retention-days: 90
-           
-           
-           
-           
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2.0.9
-        with:
-            name: 'samplerepository'
-            path: 'samplerepository'
-            
-            
-            
-      - name: shelldeploy 
-        shell: cmd
-        run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\Newprocess.${{steps.vars.outputs.version}}.nupkg" "https://cloud.uipath.com" "$env.TenantName" -t $env.UserKey -a $env.AccountName
