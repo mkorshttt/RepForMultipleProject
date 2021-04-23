@@ -1,0 +1,49 @@
+name: TestRun1
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+ Build:
+    runs-on: windows-latest
+    steps:   
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+         format: YYMMDDHHmm
+         utcOffset: "+08:00"
+      - name: Use current time
+        env:
+         F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+         PATH: ""
+        run: |
+          echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}}
+          
+      - uses: actions/checkout@v2
+      - name: create temp file
+        run: |
+                foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
+                       {    
+                           if($package.Name -match 'project.json')
+                           {
+      - name:  GetVersionFromJson
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+           path: '$PATH'
+           prop_path: 'projectVersion'
+           if: github.ref == 'refs/heads/main'
+      - run: echo ${{steps.version.outputs.prop}}
+      - name: Version Incrment
+        env:
+            VERSION: ${{steps.version.outputs.prop}}
+        run: |
+               $v= [version] "${{steps.version.outputs.prop}}"
+               $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1),"${{ steps.current-time.outputs.formattedTime }}"
+               $VERSION=[string]$newversion
+               echo $VERSION
+                              $PATH = $package.FullName
+                           }
+                       }
+          
