@@ -36,7 +36,7 @@ jobs:
                            {
                               name:  GetVersionFromJson
                               runs-on: windows-latest
-                              $PATH : $package.FullName
+                              $PATH = $package.FullName
                            }
                        }
       - name: GetVersionFromJson
