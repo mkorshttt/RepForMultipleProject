@@ -30,7 +30,7 @@ jobs:
       - name: create temp file
         shell: cmd
         run: |
-                Get-ChildItem -Path ${{ github.workspace }} -Recurse -Filter *.json -Directory | 
+                Get-ChildItem -Path ${{ github.workspace }}
                 foreach {
                       console.log($_.FullName)
                          if((Get-Content $_.FullName) -match 'project')
