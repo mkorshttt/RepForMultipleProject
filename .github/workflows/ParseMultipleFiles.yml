@@ -32,7 +32,7 @@ jobs:
                 
                 foreach( $package in (Get-ChildItem -Path ${{ github.workspace }}))
                 {
-                      console.log($package.Name)
+                      echo ($package.Name)
                          if((Get-Content $package.Name) -match 'project.json')
                             {
                                Folder =$package.Name
