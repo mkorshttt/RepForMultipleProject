@@ -38,27 +38,6 @@ jobs:
                            if($package.Name -match 'project.json')
                            {
       - name:  GetVersionFromJson
-                              $PATH = $package.FullName
-      - name:  Version Incrment 
-      
-      - name: UiPath Build
-      
-      - name: set env
-      
-      - name: shellcheck
-      
-      - name: Upload a Build Artifact
-      
-      - name: Download Artifacts
-      
-      - name: shelldeploy 
-                           }
-                       }
-                       
-                       
-                       
-                       
-      - name: GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
@@ -66,12 +45,11 @@ jobs:
            prop_path: 'projectVersion'
            if: github.ref == 'refs/heads/main'
       - run: echo ${{steps.version.outputs.prop}}
+                              $PATH = $package.FullName
       
-      
-      
-      
-      
-      
+                           }
+                       }
+                       
       - name: Version Incrment
         env:
             VERSION: ${{steps.version.outputs.prop}}
