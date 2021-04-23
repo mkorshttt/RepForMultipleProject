@@ -28,9 +28,7 @@ jobs:
 
       - name: create temp file
         run: |
-               pwsh: "$json = Get-ChildItem -File $filePath -Recurse | 
-                             Where-Object { $_.LastWriteTime -gt [DateTime] $filesNewerThan } |
-                             ForEach-Object { Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json }"   
+               call "$json = Get-ChildItem -File $filePath -Recurse | Where-Object { $_.LastWriteTime -gt [DateTime] $filesNewerThan } | ForEach-Object { Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json }"   
                 
 
     
