@@ -17,8 +17,6 @@ jobs:
         env:
          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
          PATH: ""
-        run: |
-          echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}}
           
       - uses: actions/checkout@v2
       - name: create temp file
@@ -37,7 +35,7 @@ jobs:
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: '$PATH'
+           path: PATH
            prop_path: 'projectVersion'
            if: github.ref == 'refs/heads/main'
       - run: echo ${{steps.version.outputs.prop}}
