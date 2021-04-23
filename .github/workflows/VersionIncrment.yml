@@ -19,6 +19,24 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+         format: YYMMDDHHmm
+         utcOffset: "+08:00"
+      - name: Use current time
+        env:
+         MAJOR: 1
+         MINOR: 0
+         BUILD: ${{github.run_number}}
+         TIME: "${{ steps.current-time.outputs.time }}"
+         R_TIME: "${{ steps.current-time.outputs.readableTime }}"
+         F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+         YEAR: "${{ steps.current-time.outputs.year }}"
+         DAY: "${{ steps.current-time.outputs.day }}"
+        run: |
+          echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}}
       - uses: actions/checkout@v2
       - name: GetVersionFromJson
         id: version
@@ -33,6 +51,6 @@ jobs:
             VERSION: ${{steps.version.outputs.prop}}
         run: |
                $v= [version] "${{steps.version.outputs.prop}}"
-               $newversion= "{0}.{1}.{2}" -f $v.Major, $v.Minor, ($v.Build+1)
+               $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1), $F_TIME
                $VERSION=[string]$newversion
                echo $VERSION
