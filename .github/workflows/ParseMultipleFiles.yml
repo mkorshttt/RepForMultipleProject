@@ -21,7 +21,9 @@ jobs:
          YEAR: "${{ steps.current-time.outputs.year }}"
          DAY: "${{ steps.current-time.outputs.day }}"
         run: |
-          echo {{$env.F_TIME}}
+          echo ${{env.F_TIME}}
+          echo $F_TIME
+          
 
 
     
