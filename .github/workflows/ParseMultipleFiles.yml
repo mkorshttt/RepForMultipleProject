@@ -17,7 +17,7 @@ jobs:
         env:
          MAJOR: 1
          MINOR: 0
-         BUILD: ${GITHUB_RUN_NUMBER}
+         BUILD: ${{github.run_number}}
          TIME: "${{ steps.current-time.outputs.time }}"
          R_TIME: "${{ steps.current-time.outputs.readableTime }}"
          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
