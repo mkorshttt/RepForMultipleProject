@@ -27,6 +27,7 @@ jobs:
           echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}}
 
       - name: create temp file
+        shell: cmd
         run: |
                call "$json = Get-ChildItem -File $filePath -Recurse | Where-Object { $_.LastWriteTime -gt [DateTime] $filesNewerThan } | ForEach-Object { Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json }"   
                 
