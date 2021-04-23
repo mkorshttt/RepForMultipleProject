@@ -28,7 +28,15 @@ jobs:
 
       - name: create temp file
         run: |
-               Get-ChildItem -File ${{ github.workspace }} -Recurse | ForEach-Object { Get-Content -Raw -LiteralPath $_.FullName | ConvertFrom-Json }
+               Get-ChildItem -File ${{ github.workspace }} -Recurse -Filter '*.json' -File| 
+               foreach {
+
+                 if((Get-Content $_.FullName) -match 'project')
+                     {
+    
+                 $_.FullName
+                       }
+                     }
                 
 
     
