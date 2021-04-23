@@ -33,9 +33,5 @@ jobs:
             VERSION: ${{steps.version.outputs.prop}}
         run: |
                $v= [version] ${{steps.version.outputs.prop}}
-               $Build = $v.Build
-               $Minor = $v.Minor
-               $Major = $v.Major
-               $value="{0}.{1}.{2}" -f ($v.Major.$v.Minor.$v.Build+1)
-               $VERSION=[string] $value
-               echo $VERSION
+
+               echo $v
