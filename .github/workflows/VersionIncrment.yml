@@ -32,7 +32,8 @@ jobs:
         env:
             VERSION: 0
         run: |
-               $v = [version] ${{steps.version.outputs.prop}}
+               $v = [version]${{steps.version.outputs.prop}}
                echo $v
                $newversion = "{0}.{1}.{2}" -f $v.Major,$v.Minor,($v.Build+1)
-               echo $newversion
+               $env.VERSION =[string] $newversion
+               echo $env.VERSION
