@@ -53,6 +53,3 @@ jobs:
            prop_path: 'projectVersion'
       - run: echo ${{steps.version.outputs.prop}} 
                        }
-
-
-    
