@@ -4,7 +4,20 @@ on:
     branches: [ main ]
   workflow_dispatch:
 jobs:
-  build:
+
+ ReadJson:
+    name: Uipath-Build   
+    runs-on: windows-latest
+    steps: 
+      - name: GetVersionFromJson
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+           path: $package.Name
+           prop_path: 'projectVersion'
+      - run: echo ${{steps.version.outputs.prop}} 
+ 
+ Build:
     runs-on: windows-latest
     steps:   
       - name: Get current time
@@ -32,17 +45,16 @@ jobs:
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                        {    
                          if($package.Name -match 'project.json')
-                            {
-      - name: get version
+                         {
+      - name: GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-             path: $package.Name
-             prop_path: 'projectVersion'
+           path: $package.Name
+           prop_path: 'projectVersion'
       - run: echo ${{steps.version.outputs.prop}} 
                             }
                        }
-          
 
 
     
