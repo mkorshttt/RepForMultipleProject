@@ -32,7 +32,6 @@ jobs:
         env:
             VERSION: ${{steps.version.outputs.prop}}
         run: |
-               $v= [version] ${{steps.version.outputs.prop}}
-               [version]::New($v.Major,$v.Minor,$v.Build+1) 
-               $value=[string] $v
+               $v= [version] ${{steps.version.outputs.prop}}.Value 
+               $value=[int] $v.Build+1
                echo $value
