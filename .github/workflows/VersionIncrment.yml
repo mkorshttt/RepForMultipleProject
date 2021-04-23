@@ -32,6 +32,6 @@ jobs:
         env:
             VERSION: ${{steps.version.outputs.prop}}
         run: |
-               $v= [version] ${{steps.version.outputs.prop}}.Value 
+               $v= [version] ${{steps.version.outputs.prop}}
                $value=[int] $v.Build+1
                echo $value
