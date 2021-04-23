@@ -44,8 +44,7 @@ jobs:
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                        {    
-                         if($package.Name -match 'project.json')
-                         {
+        if: $package.Name =='project.json'
       - name: GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
@@ -53,7 +52,6 @@ jobs:
            path: $package.Name
            prop_path: 'projectVersion'
       - run: echo ${{steps.version.outputs.prop}} 
-                            }
                        }
 
 
