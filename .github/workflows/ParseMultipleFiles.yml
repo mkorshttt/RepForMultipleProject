@@ -35,7 +35,7 @@ jobs:
                          if((Get-Content $_.FullName) -match 'project')
                             {
                                Folder =$_.FullName
-                               echo $Folder
+                               echo Folder
                             }
                        }
                 
