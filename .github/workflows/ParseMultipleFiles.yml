@@ -33,7 +33,7 @@ jobs:
                        {    
                            if($package.Name -match 'project.json')
                            {
-                                echo  $package.Name
+                                echo  $package.FullName
                            }
                        }
       - name: GetVersionFromJson
