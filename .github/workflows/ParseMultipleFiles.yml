@@ -29,15 +29,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: create temp file
         run: |
-                
-                
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                        {    
                          echo ($package.Name)
                          if($package.Name -match 'project.json')
                             {
-                               Folder = $package.Name
-                               echo Folder
+                               echo  $package.Name
                             }
                        }
           
