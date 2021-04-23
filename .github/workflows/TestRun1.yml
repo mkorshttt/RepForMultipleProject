@@ -29,6 +29,7 @@ jobs:
                            if($package.Name -match 'project.json')
                            {
                            $PATH = ${package.FullName}
+                           echo $PATH
                            ${{ steps.version.GetVersionFromJson }}
                            }
                        }
@@ -37,7 +38,7 @@ jobs:
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: ${{ steps.FilePath.output.PATH }}
+           path: ${{env.PATH }}
            prop_path: 'projectVersion'
            if: github.ref == 'refs/heads/main'
       - run: echo ${{steps.version.outputs.prop}}
