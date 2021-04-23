@@ -34,7 +34,8 @@ jobs:
                          console.log($_.FullName)
                          if((Get-Content $_.FullName) -match 'project')
                             {
-                         console.log($_.FullName)
+                               Folder =$_.FullName
+                               echo $Folder
                             }
                        }
                 
