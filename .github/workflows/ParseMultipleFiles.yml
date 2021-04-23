@@ -33,7 +33,13 @@ jobs:
                        {    
                          if($package.Name -match 'project.json')
                             {
-                               echo  $package.Name
+      - name: get version
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+             path: $package.Name
+             prop_path: 'projectVersion'
+      - run: echo ${{steps.version.outputs.prop}} 
                             }
                        }
           
