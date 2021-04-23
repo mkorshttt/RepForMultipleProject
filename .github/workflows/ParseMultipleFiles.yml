@@ -29,17 +29,16 @@ jobs:
 
       - name: create temp file
         run: |
-               Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter *.json -Directory | 
-               foreach {
-               
-                         console.log($_.FullName)
-                         if((Get-Content $_.FullName) -match 'project')
-                            {
-                               Folder =$_.FullName
-                               echo Folder
-                            }
-                       }
-
+               Write-Host ""+(Get-ChildItem $file | Measure-Object).Count.ToString()
+                  if((Get-ChildItem $file | Measure-Object).Count -gt 0)
+                        {
+                            foreach ($package in (Get-ChildItem -Path ${{ github.workspace }}\MyProject)) 
+                            { 
+                               if($package.Name.Contains('project'))
+                               {
+                                   Write-Host "$package.Name"
+                               }
+                        }
 
     
          
