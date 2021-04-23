@@ -35,7 +35,7 @@ jobs:
                       echo ($package.Name)
                              foreach( $packageN in (Get-ChildItem -Path $package.Name))
                              {
-                                 if((Get-Content $packageN.Name) -match 'project.json')
+                                 if((Get-ChildItem $packageN.Name) -match 'project.json')
                                      {
                                            Folder =$package.Name
                                            echo Folder
