@@ -28,7 +28,7 @@ jobs:
                 {
         env:
             PATH_VALUE: $package
-                   echo "${{e.vPATH_VALUE}}"
+                   echo "${{env.PATH_VALUE}}"
                 }
                 
       - name: Display Path Value
