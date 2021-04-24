@@ -33,7 +33,7 @@ jobs:
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: '$PATH'
+           path: '${PATH}'
            prop_path: 'projectVersion'
            run: |
               echo path
