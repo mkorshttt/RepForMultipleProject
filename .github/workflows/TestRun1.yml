@@ -23,9 +23,9 @@ jobs:
         id: Parse
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
-                {
+                do
                   echo ::set-output name=PATH_VALUE::$package
-                }
+                done
       - name: GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
