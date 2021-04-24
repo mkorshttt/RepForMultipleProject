@@ -23,22 +23,9 @@ jobs:
         id: Parse
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
-                do
+                {
                   echo ::set-output name=PATH_VALUE::$package
-                done
-      - name: GetVersionFromJson
-        id: version
-        uses: notiz-dev/github-action-json-property@release
-        with: 
-           path: '${{steps.Parse.outputs.PATH_VALUE}}'
-           prop_path: 'projectVersion'
-      - run: echo ${{steps.version.outputs.prop}}
-      - name: Version Incrment
-        env:
-            VERSION: ${{steps.version.outputs.prop}}
-        run: |
-               $v= [version] "${{steps.version.outputs.prop}}"
-               $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1),"${{ steps.current-time.outputs.formattedTime }}"
-               $VERSION=[string]$newversion
-               echo $VERSION      
+                }
+        env: 
+            PATH: ${{steps.Parse.outputs.PATH_VALUE}}
            
