@@ -5,9 +5,7 @@ on:
   workflow_dispatch:
 jobs:
  Build:
-    runs-on: windows-latest
-    env:
-         PATH_VALUE: ""    
+    runs-on: windows-latest 
     steps:   
       - name: Get current time
         uses: 1466587594/get-current-time@v2
@@ -22,12 +20,15 @@ jobs:
         run: |
           echo ${{env.F_TIME}}
       - uses: actions/checkout@v2
-      - name: Parse Files 
+      - uses: allenevans/set-env@v2.0.0
+        with:
+             PATH_VALUE: ""
+      - name: Parse Files  
         id: Parsing
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                 {
-                 $env.PATH_VALUE = ::set-output name=PATH_VALUE::$package
+                  PATH_VALUE: $package
                 }
                 
       - name: Display Path Value
