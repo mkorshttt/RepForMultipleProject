@@ -6,6 +6,8 @@ on:
 jobs:
  Build:
     runs-on: windows-latest
+    env:
+         PATH_VALUE: ""    
     steps:   
       - name: Get current time
         uses: 1466587594/get-current-time@v2
@@ -25,11 +27,11 @@ jobs:
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                 {
-                 echo ::set-output name=PATH_VALUE::$package
+                 $env.PATH_VALUE = ::set-output name=PATH_VALUE::$package
                 }
                 
       - name: Display Path Value
         run: |
-            echo "${{PATH_VALUE}}"
+            echo "${{env.PATH_VALUE}}"
      
            
