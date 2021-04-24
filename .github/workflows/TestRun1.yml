@@ -27,9 +27,9 @@ jobs:
                 }
         id: Parsing
         env:
-            PATH_VALUE: ${{steps.Parsing.outputs.*}}
+            PATH: ${{steps.Parsing.outputs.PATH_VALUE}}
       - name: Display Path Value
         run: |
-            echo "${{env.PATH_VALUE}}"
+            echo "${{env.PATH}}"
      
            
