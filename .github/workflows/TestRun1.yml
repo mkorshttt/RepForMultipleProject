@@ -24,13 +24,7 @@ jobs:
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                        {    
-                        echo $package.Name
-                        echo $package.FullName
-                           if($package.Name -imatch 'project.json')
-                           {
-                              $PATH = $package.FullName
-                               echo $package.FullName.$PATH
-                           }
+                         $PATH = $package.FullName
                        }
       - name: GetVersionFromJson
         id: version
