@@ -22,19 +22,19 @@ jobs:
       - uses: actions/checkout@v2
       - name: create temp file
         run: |
+                arr=()
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                 {
- BuildVersion:
-        runs-on: windows-latest
-        needs: Build
-        steps:                  
-         - name: GetVersionFromJson 
-           id: version 
-           uses: notiz-dev/github-action-json-property@release
-           with: 
-              path: $package.FullName
-              prop_path: 'projectVersion'
-              if: github.ref == 'refs/heads/main'  }
+                do
+                if [[ $i == *"path1"* ]]; then
+                  arr+=("path1")
+                fi
+                if [[ $i == *"path2"* ]]; then
+                 arr+=("path2")
+                fi  
+                done
+                 echo ::set-output name=arr::${arr[@]}
+                }
 
      
            
