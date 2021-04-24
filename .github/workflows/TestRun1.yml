@@ -6,6 +6,8 @@ on:
 jobs:
  Build:
     runs-on: windows-latest
+    env:
+       PATH_VALUE: 0
     steps:   
       - name: Get current time
         uses: 1466587594/get-current-time@v2
@@ -16,7 +18,7 @@ jobs:
       - name: Use current time
         env:
          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-         PATH_VALUE: 0
+         
         run: |
           echo ${{env.F_TIME}}
       - uses: actions/checkout@v2
@@ -29,7 +31,7 @@ jobs:
                 }
                 
       - name: Display Path Value
-        run: $env.PATH_VALUE
+        run: ${{steps.Parsing.outputs.PATH_VALUE}}
 
      
            
