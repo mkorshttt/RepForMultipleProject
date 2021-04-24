@@ -20,21 +20,16 @@ jobs:
         run: |
           echo ${{env.F_TIME}}
       - uses: actions/checkout@v2
-      - name: create temp file
+      - name: Parse Files 
+        id: Parsing
         run: |
-                arr=@()
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                 {
-                do
-                if [[ $i == *"path1"* ]]; then
-                  arr+=("path1")
-                fi
-                if [[ $i == *"path2"* ]]; then
-                 arr+=("path2")
-                fi  
-                done
-                 echo ::set-output name=arr::${arr[@]}
+                   echo ::set-output name=PATH_VALUE::$package.FullName
                 }
+                
+      - name: Display Path Value
+        run: echo $PATH_VALUE
 
      
            
