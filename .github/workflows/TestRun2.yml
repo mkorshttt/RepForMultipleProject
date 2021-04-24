@@ -17,8 +17,8 @@ jobs:
       - name: Output results
         run: |
           echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
-          echo ${{ steps.pl.outputs.paths(1) }}
-            echo ${{ steps.pl.outputs.paths(0) }}
+          echo ${{ steps.pl.outputs.paths[1] }}
+            echo ${{ steps.pl.outputs.paths[0] }}
           for i in ${{ steps.pl.outputs.paths }}; 
                   do
                      echo $i
