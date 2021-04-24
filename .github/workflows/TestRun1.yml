@@ -7,7 +7,7 @@ jobs:
  Build:
     runs-on: windows-latest
     env:
-       PATH_VALUE: 0
+       PATH_VALUE: ""
     steps:   
       - name: Get current time
         uses: 1466587594/get-current-time@v2
