@@ -23,8 +23,7 @@ jobs:
       - name: create temp file
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
-                      
-                       { 
+
  BuildVersion:
         runs-on: windows-latest
         needs: Build
@@ -33,11 +32,9 @@ jobs:
            id: version 
            uses: notiz-dev/github-action-json-property@release
            with: 
-              path: '$package.FullName'
+              path: $package.FullName
               prop_path: 'projectVersion'
               if: github.ref == 'refs/heads/main'
-         - run: echo ${{steps.version.outputs.prop}}
-                       
-                       }
+
      
            
