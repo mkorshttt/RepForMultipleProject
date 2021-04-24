@@ -15,22 +15,19 @@ jobs:
          utcOffset: "+08:00"
       - name: Use current time
         env:
-         F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-         
+         F_TIME: "${{ steps.current-time.outputs.formattedTime }}"         
         run: |
           echo ${{env.F_TIME}}
       - uses: actions/checkout@v2
-      - uses: allenevans/set-env@v2.0.0
-        with:
-             PATH_VALUE: ""
       - name: Parse Files  
-        id: Parsing
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                 {
-                  PATH_VALUE: $package
+                  echo ::set-output name=PATH_VALUE::$package
                 }
-                
+        id: Parsing
+        env:
+            PATH_VALUE: ${{steps.Parsing.outputs.*}}
       - name: Display Path Value
         run: |
             echo "${{env.PATH_VALUE}}"
