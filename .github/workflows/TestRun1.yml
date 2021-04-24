@@ -29,8 +29,7 @@ jobs:
                 }
                 
       - name: Display Path Value
-        run: |
-           echo 'PATH_VALUE'
+        run: PATH_VALUE
 
      
            
