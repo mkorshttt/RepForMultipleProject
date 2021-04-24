@@ -27,16 +27,16 @@ jobs:
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                 {
-                   echo ::set-output name=paths::$package
+                   echo ::set-output name=PATH_VALUE::$package
                 }
                 
       - name: Display Path Value
-        run: "${{steps.Parsing.outputs.paths}}"
+        run: "${{steps.Parsing.outputs.PATH_VALUE}}"
       - name: GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: '${{steps.Parsing.outputs.paths}}'
+           path: '${{steps.Parsing.outputs.PATH_VALUE}}'
            prop_path: 'projectVersion'
            if: github.ref == 'refs/heads/main'
       - run: echo ${{steps.version.outputs.prop}}
