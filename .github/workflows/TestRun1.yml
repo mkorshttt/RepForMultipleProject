@@ -30,7 +30,7 @@ jobs:
                 
       - name: Display Path Value
         run: |
-           echo ${{env.PATH_VALUE}}
+           echo ${PATH_VALUE}
 
      
            
