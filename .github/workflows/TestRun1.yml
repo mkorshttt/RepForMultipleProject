@@ -26,7 +26,6 @@ jobs:
                        {    
                            if($package.Name -match 'project.json')
                            {
-      - name:  GetVersionFromJson
                               $PATH = $package.FullName
                            }
                        }
