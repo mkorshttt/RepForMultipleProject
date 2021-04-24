@@ -24,13 +24,13 @@ jobs:
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                        {    
-                         echo "::set-env name=PATH::test-$package.FullName"
+                         Write-Output "::set-env name=PATH::$package.FullName"
                        }
       - name: GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: ${{steps.env.PATh}}
+           path: ${{ env.PATH}}
            prop_path: 'projectVersion'
            run: |
               echo path
