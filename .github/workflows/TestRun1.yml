@@ -27,7 +27,7 @@ jobs:
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                 {
-                   echo ::set-output name=PATH_VALUE::$package
+                   echo ::set-output name=env.PATH_VALUE::$package
                 }
                 
       - name: Display Path Value
