@@ -23,10 +23,10 @@ jobs:
       - name: create temp file
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
+                      
                        {    
-                              $package.FullName
-      - name: GetVersionFromJson
-        id: version
+      - name: GetVersionFromJson 
+        id: version 
         uses: notiz-dev/github-action-json-property@release
         with: 
            path: '$package.FullName'
