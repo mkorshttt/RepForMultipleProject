@@ -25,7 +25,7 @@ jobs:
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                        {    
                         echo $package.Name
-                           if($package.Name.Contains('project.json'))
+                           if($package.Name.Contains("project.json"))
                            {
                               $PATH = $package.FullName
                                echo $package.FullName.$PATH
