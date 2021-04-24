@@ -16,7 +16,7 @@ jobs:
       - name: Use current time
         env:
          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-         PATH: 0
+         PATH_VALUE: 0
         run: |
           echo ${{env.F_TIME}}
       - uses: actions/checkout@v2
@@ -24,13 +24,13 @@ jobs:
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                        {    
-                         eacho "PATH=$package.FullName" >> $GITHUB_ENV
+                         echo "PATH_VALUE=$package.FullName" >> $GITHUB_ENV
                        }
       - name: GetVersionFromJson
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: ${{ env.PATH}}
+           path: ${{ env.PATH_VALUE}}
            prop_path: 'projectVersion'
            run: |
               echo path
