@@ -31,7 +31,7 @@ jobs:
                 }
                 
       - name: Display Path Value
-        run: echo ${{steps.Parsing.outputs.paths}}
+        run: ${{steps.Parsing.outputs.paths}}
 
      
            
