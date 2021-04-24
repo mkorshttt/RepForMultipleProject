@@ -29,7 +29,8 @@ jobs:
                 }
                 
       - name: Display Path Value
-        run: echo ${{env.PATH_VALUE}}
+        run: |
+           echo ${{env.PATH_VALUE}}
 
      
            
