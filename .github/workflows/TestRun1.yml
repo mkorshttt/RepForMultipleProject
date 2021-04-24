@@ -27,6 +27,7 @@ jobs:
                        { 
  BuildVersion:
         runs-on: windows-latest
+        needs: Build
         steps:                  
          - name: GetVersionFromJson 
            id: version 
