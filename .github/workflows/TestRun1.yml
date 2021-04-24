@@ -29,3 +29,12 @@ jobs:
                               $PATH = $package.FullName
                            }
                        }
+      - name: GetVersionFromJson
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+           path: '$PATH'
+           prop_path: 'projectVersion'
+           run: |
+              echo path
+           
