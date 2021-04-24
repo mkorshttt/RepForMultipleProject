@@ -30,6 +30,6 @@ jobs:
             PATH: ${{steps.Parsing.outputs.PATH_VALUE}}
       - name: Display Path Value
         run: |
-            echo "${{steps.Parsing.outputs.PATH_VALUE}}"
+            echo "${env.PATH}"
      
            
