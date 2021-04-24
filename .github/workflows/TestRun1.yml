@@ -30,6 +30,6 @@ jobs:
             PATH: ${{env.PATH_VALUE}}
         
       - name: Display
-          echo ${PATH}
+        run: echo ${PATH}
    
            
