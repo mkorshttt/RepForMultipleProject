@@ -24,12 +24,11 @@ jobs:
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                 {
                   echo ::set-output name=PATH_VALUE::$package
+                  echo "$PATH_VALUE"
                 }
         id: Parsing
         env:
             PATH: ${{steps.Parsing.outputs.PATH_VALUE}}
-      - name: Display Path Value
-        run: |
-            echo "${env.PATH}"
-     
+
+   
            
