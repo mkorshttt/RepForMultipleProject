@@ -15,14 +15,18 @@ jobs:
          utcOffset: "+08:00"
       - name: Use current time
         env:
-         MAJOR: 1
-         MINOR: 0
-         BUILD: ${{github.run_number}}
-         TIME: "${{ steps.current-time.outputs.time }}"
-         R_TIME: "${{ steps.current-time.outputs.readableTime }}"
          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-         YEAR: "${{ steps.current-time.outputs.year }}"
-         DAY: "${{ steps.current-time.outputs.day }}"
          PATH: 0
         run: |
-          echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}}
+          echo ${{env.F_TIME}}
+      - uses: actions/checkout@v2
+      - name: create temp file
+        run: |
+                foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
+                       {    
+                           if($package.Name -match 'project.json')
+                           {
+      - name:  GetVersionFromJson
+                              $PATH = $package.FullName
+                           }
+                       }
