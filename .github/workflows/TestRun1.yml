@@ -23,7 +23,7 @@ jobs:
       - name: create temp file
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
-
+                {
  BuildVersion:
         runs-on: windows-latest
         needs: Build
@@ -34,7 +34,7 @@ jobs:
            with: 
               path: $package.FullName
               prop_path: 'projectVersion'
-              if: github.ref == 'refs/heads/main'
+              if: github.ref == 'refs/heads/main'  }
 
      
            
