@@ -24,7 +24,7 @@ jobs:
         run: |
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                        {    
-                         Write-Output "::set-env name=PATH::$package.FullName"
+                         eacho "PATH=$package.FullName" >> $GITHUB_ENV
                        }
       - name: GetVersionFromJson
         id: version
