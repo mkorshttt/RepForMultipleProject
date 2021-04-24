@@ -19,5 +19,21 @@ jobs:
           echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
            echo ${{ steps.pl.outputs.paths[0] }}
           for i in ${{ steps.pl.outputs.paths }}; do
-          echo $i
-          done
+      - name: GetVersionFromJson
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+           path: '$i'
+           prop_path: 'projectVersion'
+           if: github.ref == 'refs/heads/main'
+      - run: echo ${{steps.version.outputs.prop}}
+      - name: Version Incrment
+        env:
+            VERSION: ${{steps.version.outputs.prop}}
+        run: |
+               $v= [version] "${{steps.version.outputs.prop}}"
+               $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1),"${{ steps.current-time.outputs.formattedTime }}"
+               $VERSION=[string]$newversion
+               echo $VERSION
+          
+                     done
