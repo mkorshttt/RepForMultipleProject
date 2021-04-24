@@ -6,8 +6,6 @@ on:
 jobs:
  Build:
     runs-on: windows-latest
-    env:
-          PATH_VALUE: ${{steps.Parsing.outputs.PATH_VALUE}}
     steps:   
       - name: Get current time
         uses: 1466587594/get-current-time@v2
@@ -32,6 +30,6 @@ jobs:
                 
       - name: Display Path Value
         run: |
-            echo "${{env.PATH_VALUE}}"
+            echo "${{steps.Parsing.outputs.PATH_VALUE}}"
      
            
