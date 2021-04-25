@@ -58,7 +58,7 @@ jobs:
                           echo $VERSION
                           echo $Name
                           & "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "$package" -o "${{ github.workspace }}" -v $VERSION -l en-US
-                          & "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\$Name.${{steps.vars.outputs.version}}.nupkg" "https://cloud.uipath.com" "Sukesh.Vanarasi" -t wbOriFCPKcvSI78ePH9TacbfQ-KCUNYgbYDM9vH6uy9r2 -a Sukesh.Vanarasi
+                          & "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\$Name.${{steps.vars.outputs.version}}.nupkg" "https://cloud.uipath.com" "Sukesh.Vanarasi" -UserKey wbOriFCPKcvSI78ePH9TacbfQ-KCUNYgbYDM9vH6uy9r2 -account_name Sukesh.Vanarasi
                        }    
 
       - name: Upload a Build Artifact
