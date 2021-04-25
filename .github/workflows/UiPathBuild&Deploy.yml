@@ -47,7 +47,7 @@ jobs:
       - name: DeployOrchestrator
         shell: cmd
         run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\MyProject" "https://cloud.uipath.com" "$env.TenantName" -t $env.UserKey -a $env.AccountName
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\ProjectFiles\MyProject" "https://cloud.uipath.com" "$env.TenantName" -t $env.UserKey -a $env.AccountName
 
            
 
