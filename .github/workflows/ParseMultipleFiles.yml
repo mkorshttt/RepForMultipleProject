@@ -52,3 +52,10 @@ jobs:
         shell: cmd
         run: |
                call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\MyProject" -o "${{ github.workspace }}" -v "${{steps.vars.outputs.version}}" -l en-US
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.0
+        with:	 
+             name: samplerepository
+             path: ${{ github.workspace }}/**
+             if-no-files-found: error
+             retention-days: 90
