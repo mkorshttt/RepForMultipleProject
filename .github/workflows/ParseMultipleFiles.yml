@@ -39,4 +39,16 @@ jobs:
                        }
                  
                 echo $files[0]
-     
+      - uses: actions/checkout@v2
+      - run: |
+                 New-Item -Path "C:\\" -ItemType "directory" -Name "uipathcli";
+                 Invoke-WebRequest "https://www.myget.org/F/uipath-dev/api/v2/package/UiPath.CLI/1.0.7758.25166" -OutFile "C:\\uipathcli\\cli.zip";
+                 Expand-Archive -LiteralPath "C:\\uipathcli\\cli.Zip" -DestinationPath "C:\\uipathcli"; 
+      - name: set env
+        id: vars
+        run: |
+                echo "::set-output name=version::$(echo '${{env.major}}.${{env.minor}}.${{github.run_number}}')"  
+      - name: shellcheck 
+        shell: cmd
+        run: |
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\*\project.json" -o "${{ github.workspace }}" -v "${{steps.vars.outputs.version}}" -l en-US
