@@ -34,7 +34,7 @@ jobs:
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                        {    
                           $json = Get-Content "$package" | Out-String | ConvertFrom-Json
-                          $foo = New-Object FooObject ($json.projectVersion)
+                          $foo = $json.projectVersion
                           echo "::set-output name=PATH::$package"
                           echo $foo
                        }    
