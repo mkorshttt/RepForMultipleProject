@@ -4,9 +4,22 @@ on:
     branches: [ main ]
   workflow_dispatch:
 jobs:
+
+ remove-old-artifacts:
+    runs-on: windows-latest
+    timeout-minutes: 10
+
+    steps:
+    - name: Remove old artifacts
+      uses: c-hive/gha-remove-artifacts@v1
+      with:
+        age: '1 month'
+
+
  Build:
     runs-on: windows-latest
-    steps:   
+    needs: remove-old-artifacts
+    steps:  
       - name: Get current time
         uses: 1466587594/get-current-time@v2
         id: current-time
@@ -64,8 +77,10 @@ jobs:
              path: ${{ github.workspace }}/**
              if-no-files-found: error
              retention-days: 90
+             
       - name: Download Artifacts
         uses: actions/download-artifact@v2.0.9
         with:
             name: 'ProjectFiles'
             path: 'ProjectFiles'
+     
