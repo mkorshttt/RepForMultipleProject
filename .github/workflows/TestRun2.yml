@@ -26,9 +26,15 @@ jobs:
                      
       - name: GetVersionFromJson
         id: version
+        uses: lucaspinheirogit/list-from-string-array-action@v1.4.3
+        with:
+         stringArray: ${{ steps.pl.outputs.paths}}
+      - name: Print modified files
+        run: echo '${{ steps.modified_files_list.outputs.stringList }}'
+      - name: GetVersionFromJson2   
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: '${{ steps.pl.outputs.paths}}'
+           path: '${{ steps.modified_files_list.outputs.stringList }}'
            prop_path: 'projectVersion'
            if: github.ref == 'refs/heads/main'
       - run: echo ${{steps.version.outputs.prop}}
