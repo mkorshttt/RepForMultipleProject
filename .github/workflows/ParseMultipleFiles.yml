@@ -52,7 +52,7 @@ jobs:
       - name: shellcheck 
         shell: cmd
         run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\MyProject" -o "${{ github.workspace }}" -v "${{steps.vars.outputs.version}}" -l en-US
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\MyProject" -o "${{ github.workspace }}" -v "1.0.5.2563452" -l en-US
      
      
      
