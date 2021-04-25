@@ -19,17 +19,4 @@ jobs:
         run: |
           echo ${{env.F_TIME}}
           
-      - uses: actions/checkout@v2
-      - name: Parse Files
-        id: Parse
-        run: |
-                foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
-                {
-                  echo ::set-output name=PATH_VALUE::$package
-                }
-      - name: AssignValue   
-        env: 
-            PATH: ${{steps.Parse.outputs.PATH_VALUE}}
-        run:
-            echo '$PATH'
-          echo $PATH
+      
