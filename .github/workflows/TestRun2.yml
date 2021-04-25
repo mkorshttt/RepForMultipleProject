@@ -1,5 +1,5 @@
 name: Path lister
-on: [pull_request]
+on: [push]
 jobs:
   list:
     name: Path lister
@@ -28,7 +28,7 @@ jobs:
         id: version
         uses: notiz-dev/github-action-json-property@release
         with: 
-           path: '$i'
+           path: '${{ steps.pl.outputs.paths}}'
            prop_path: 'projectVersion'
            if: github.ref == 'refs/heads/main'
       - run: echo ${{steps.version.outputs.prop}}
