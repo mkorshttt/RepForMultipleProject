@@ -1,0 +1,57 @@
+name: Testrun3
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+ Build:
+    runs-on: windows-latest
+    steps:   
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+         format: YYMMDDHHmm
+         utcOffset: "+08:00"
+      - name: Use current time
+        env:
+         MAJOR: 1
+         MINOR: 0
+         BUILD: ${{github.run_number}}
+         TIME: "${{ steps.current-time.outputs.time }}"
+         R_TIME: "${{ steps.current-time.outputs.readableTime }}"
+         F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+         YEAR: "${{ steps.current-time.outputs.year }}"
+         DAY: "${{ steps.current-time.outputs.day }}"
+         PATH: 0
+        run: |
+          echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}} 
+      - uses: actions/checkout@v2
+      - name: create temp file
+        id: versionvalue
+        run: |
+                $files = Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File
+                foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
+                       {    
+                              echo "::set-output name=PATH::$package"
+                       }
+         
+         
+         
+
+      - name: GetVersionFromJson
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+           path: '${{steps.versionvalue.outputs.PATH}}'
+           prop_path: 'projectVersion'
+           if: github.ref == 'refs/heads/main'
+      - run: echo ${{steps.version.outputs.prop}}
+      - name: Version Incrment
+        env:
+            VERSION: ${{steps.version.outputs.prop}}
+        run: |
+               $v= [version] "${{steps.version.outputs.prop}}"
+               $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1),"${{ steps.current-time.outputs.formattedTime }}"
+               $VERSION=[string]$newversion
+               echo $VERSION
