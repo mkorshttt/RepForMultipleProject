@@ -1,5 +1,5 @@
 name: Path lister
-on: [push]
+on: [pull_request]
 jobs:
   list:
     name: Path lister
