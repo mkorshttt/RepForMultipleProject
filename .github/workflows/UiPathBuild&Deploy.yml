@@ -1,0 +1,61 @@
+# This is a basic workflow to help you get UiPath Project to build and Deploy to the intended orchestrator
+
+name: UiPathBuild&Deploy
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+ AddUiPathCli:
+    runs-on: windows-latest
+    steps:  
+      - uses: actions/checkout@v2
+      - run: |
+                 New-Item -Path "C:\\" -ItemType "directory" -Name "uipathcli";
+                 Invoke-WebRequest "https://www.myget.org/F/uipath-dev/api/v2/package/UiPath.CLI/1.0.7758.25166" -OutFile "C:\\uipathcli\\cli.zip";
+                 Expand-Archive -LiteralPath "C:\\uipathcli\\cli.Zip" -DestinationPath "C:\\uipathcli"; 
+ 
+ # Convert to Nuget Package .nupkg using UiPath Cli
+ 
+ BuildNugetPackage: 
+      runs-on: windows-latest
+      needs: AddUiPathCli
+      steps:
+       - name: shellcheck 
+         shell: cmd
+         run: |
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\MyProject" -o "${{ github.workspace }}" -l en-US
+
+
+#Upload to Github Artifacts for temporary storge memory with retention of 2 days for safety purpose
+
+ UploadBuildNugetToArtifacts: 
+        runs-on: windows-latest
+        needs: BuildNugetPackage
+        steps:
+             - name: Upload a Build Artifact
+               uses: actions/upload-artifact@v2.2.0
+               with:	 
+                   name: ProjectFiles
+                   path: ${{ github.workspace }}/**
+                   if-no-files-found: error
+                   retention-days: 2
+                   
+ #Download to Github Artifacts for keeping in the local/system repository                  
+                   
+ DownloadBuildNugetToArtifacts:
+         runs-on: windows-latest
+         needs: UploadBuildNugetToArtifacts
+         steps: 
+                 - name: Download Artifacts
+                   uses: actions/download-artifact@v2.0.9
+                   with:
+                       name: 'ProjectFiles'
+                       path: 'ProjectFiles'   
+  
+        
+        
+        
+        
+        
+        
