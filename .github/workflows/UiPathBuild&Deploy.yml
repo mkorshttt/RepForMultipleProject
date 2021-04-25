@@ -6,8 +6,20 @@ on:
     branches: [ main ]
   workflow_dispatch:
 jobs:
+
+ remove-old-artifacts:
+    runs-on: windows-latest
+    timeout-minutes: 10
+
+    steps:
+    - name: Remove old artifacts
+      uses: c-hive/gha-remove-artifacts@v1
+      with:
+        age: '1 month'
+
  BuildandDeploy:
     runs-on: windows-latest
+    needs: remove-old-artifacts
     steps:  
       - uses: actions/checkout@v2
       
@@ -42,15 +54,6 @@ jobs:
       - name: DeployOrchestrator
         shell: cmd
         run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\ProjectFiles\MyProject\" "https://cloud.uipath.com" default -u Sukesh.Vanarasi -p Nannaamma@10!
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\ProjectFiles\MyProject\" "https://cloud.uipath.com" default -u sukesh.v@uipath.com -p Nannaamma@10!
      
- remove-old-artifacts:
-    runs-on: windows-latest
-    needs: BuildandDeploy
-    timeout-minutes: 10
-
-    steps:
-    - name: Remove old artifacts
-      uses: c-hive/gha-remove-artifacts@v1
-      with:
-        age: '1 month'
+ 
