@@ -10,40 +10,44 @@ jobs:
     runs-on: windows-latest
     steps:  
       - uses: actions/checkout@v2
+      
+     # Facilitate the UiPath CLI in the github artifacts
+     
       - run: |
                  New-Item -Path "C:\\" -ItemType "directory" -Name "uipathcli";
                  Invoke-WebRequest "https://www.myget.org/F/uipath-dev/api/v2/package/UiPath.CLI/1.0.7758.25166" -OutFile "C:\\uipathcli\\cli.zip";
                  Expand-Archive -LiteralPath "C:\\uipathcli\\cli.Zip" -DestinationPath "C:\\uipathcli"; 
                  
-
-#Upload to Github Artifacts for temporary storge memory with retention of 2 days for safety purpose
-
-
+      # Convert to Nuget Package .nupkg using UiPath Cli              
+                 
+      - name: Build Nuget 
+        shell: cmd
+        run: |
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\project.json" -o "${{ github.workspace }}" -v "${{steps.vars.outputs.version}}" -l en-US
+      
+      #Upload to Github Artifacts for temporary storge memory with retention of 2 days for safety purpose
+   
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.0
         with:	 
-              name: ProjectFiles
-              path: ${{ github.workspace }}/**
-              if-no-files-found: error
-              retention-days: 2
- 
+             name: samplerepository
+             path: ${{ github.workspace }}/**
+             if-no-files-found: error
+             retention-days: 2
+     
+     #Download to Github Artifacts for keeping in the local/system repository           
+             
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2.0.9
+        with:
+            name: 'ProjectFiles'
+            path: 'ProjectFiles'            
+
+
+
+   
 
  
- BuildNugetPackage: 
-      runs-on: windows-latest
-      needs: AddUiPathCli
-      steps:
- #Download to Github Artifacts for keeping in the local/system repository                
-        - name: Download Artifacts
-          uses: actions/download-artifact@v2.0.9
-          with:
-               name: 'ProjectFiles'
-               path: ${{ github.workspace }}         
- # Convert to Nuget Package .nupkg using UiPath Cli       
-        - name: Build
-          shell: cmd
-          run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\" -o "${{ github.workspace }}" -l en-US
 
 
 
