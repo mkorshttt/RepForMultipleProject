@@ -23,7 +23,7 @@ jobs:
       - name: Build Nuget 
         shell: cmd
         run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\project.json" -o "${{ github.workspace }}" -v "${{steps.vars.outputs.version}}" -l en-US
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\" -o "${{ github.workspace }}" -v "${{steps.vars.outputs.version}}" -l en-US
       
       #Upload to Github Artifacts for temporary storge memory with retention of 2 days for safety purpose
    
