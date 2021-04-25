@@ -35,15 +35,6 @@ jobs:
              if-no-files-found: error
              retention-days: 2
      
-     #Download to Github Artifacts for keeping in the local/system repository           
-             
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2.0.9
-        with:
-            name: 'ProjectFiles'
-            path: 'ProjectFiles'            
-
-
  DeployCloudOrchestrator:
     runs-on: windows-latest
     needs: BuildandDeploy
@@ -53,10 +44,10 @@ jobs:
         with:
             name: 'ProjectFiles'
             path: 'ProjectFiles' 
-      - name: shelldeploy 
+      - name: DeployOrchestrator
         shell: cmd
         run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\" "https://cloud.uipath.com" "$env.TenantName" -t $env.UserKey -a $env.AccountName
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\ProjectFiles" "https://cloud.uipath.com" "$env.TenantName" -t $env.UserKey -a $env.AccountName
 
            
 
