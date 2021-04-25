@@ -26,5 +26,8 @@ jobs:
                   echo ::set-output name=PATH_VALUE::$package
                 }
         id: Parse
+      - name: AssignValue   
         env: 
             PATH: ${{steps.Parse.outputs.PATH_VALUE}}
+        run: 
+          echo $PATH
