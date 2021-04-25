@@ -30,7 +30,7 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.0
         with:	 
-             name: samplerepository
+             name: ProjectFiles
              path: ${{ github.workspace }}/**
              if-no-files-found: error
              retention-days: 2
