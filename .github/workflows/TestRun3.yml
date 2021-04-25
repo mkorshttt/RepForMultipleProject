@@ -26,7 +26,20 @@ jobs:
          PATH: 0
         run: |
           echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}} 
+          
+          
+          
+          
       - uses: actions/checkout@v2
+      
+     # Facilitate the UiPath CLI in the github artifacts
+     
+      - run: |
+                 New-Item -Path "C:\\" -ItemType "directory" -Name "uipathcli";
+                 Invoke-WebRequest "https://www.myget.org/F/uipath-dev/api/v2/package/UiPath.CLI/1.0.7758.25166" -OutFile "C:\\uipathcli\\cli.zip";
+                 Expand-Archive -LiteralPath "C:\\uipathcli\\cli.Zip" -DestinationPath "C:\\uipathcli"; 
+                 
+                           
       - name: create temp file
         id: versionvalue
         run: |
@@ -41,6 +54,7 @@ jobs:
                           $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1),"${{ steps.current-time.outputs.formattedTime }}"
                           $VERSION=[string]$newversion
                           echo $VERSION
+                          call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\MyProject" -o "${{ github.workspace }}" -v $VERSION -l en-US
                        }    
 
       - name: GetVersionFromJson
