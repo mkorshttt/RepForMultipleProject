@@ -54,6 +54,6 @@ jobs:
       - name: DeployOrchestrator
         shell: cmd
         run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\ProjectFiles\MyProject\" "https://cloud.uipath.com" default -u sukesh.v@uipath.com -p Nannaamma@10!
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}" "https://cloud.uipath.com" default -u sukesh.v@uipath.com -p Nannaamma@10!
      
  
