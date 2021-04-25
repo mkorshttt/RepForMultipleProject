@@ -37,4 +37,6 @@ jobs:
                               $PATH = $package.FullName
                            }
                        }
+                 
+                echo $files[0]
      
