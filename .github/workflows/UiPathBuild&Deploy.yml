@@ -21,9 +21,15 @@ jobs:
       runs-on: windows-latest
       needs: AddUiPathCli
       steps:
-       - name: shellcheck 
-         shell: cmd
-         run: |
+        - name: Download Artifacts
+          uses: actions/download-artifact@v2.0.9
+          with:
+               name: 'ProjectFiles'
+               path: ${{ github.workspace }}         
+       
+        - name: Build
+          shell: cmd
+          run: |
                call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}" -o "${{ github.workspace }}" -l en-US
 
 
