@@ -30,7 +30,6 @@ jobs:
       - name: create temp file
         run: |
                 $files = Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File
-                echo "Directory Names: " $files[0]
                 foreach($package in Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File)
                        {    
                            if($package.Name -match 'project.json')
