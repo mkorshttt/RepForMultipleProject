@@ -42,7 +42,7 @@ jobs:
       - name: DeployOrchestrator
         shell: cmd
         run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\ProjectFiles\MyProject\" "https://cloud.uipath.com" "Sukesh.Vanarasi" -t hxYUcqVN1hH6x0EphHBEmKwiAzSXpQ7_UVLsKOQ5cRfqe -a Sukesh.Vanarasi
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\ProjectFiles\MyProject\" "https://cloud.uipath.com" default -u Sukesh.Vanarasi -p Nannaamma@10!
      
  remove-old-artifacts:
     runs-on: windows-latest
