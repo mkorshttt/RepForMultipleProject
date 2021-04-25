@@ -21,11 +21,10 @@ jobs:
       runs-on: windows-latest
       needs: AddUiPathCli
       steps:
-       - uses: actions/checkout@v2
        - name: shellcheck 
          shell: cmd
          run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\MyProject" -o "${{ github.workspace }}" -l en-US
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}" -o "${{ github.workspace }}" -l en-US
 
 
 #Upload to Github Artifacts for temporary storge memory with retention of 2 days for safety purpose
