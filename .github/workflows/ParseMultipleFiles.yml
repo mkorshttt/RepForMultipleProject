@@ -16,6 +16,7 @@ jobs:
          
          
       - name: Use current time
+        id: vars
         env:
          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
         run: |
@@ -26,7 +27,6 @@ jobs:
           
           
       - uses: actions/checkout@v2
-        id: vars
       - name: create temp file
         run: |
                 $files = Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File
