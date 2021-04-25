@@ -57,19 +57,15 @@ jobs:
                           & "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "${{ github.workspace }}\MyProject" -o "${{ github.workspace }}" -v $VERSION -l en-US
                        }    
 
-      - name: GetVersionFromJson
-        id: version
-        uses: notiz-dev/github-action-json-property@release
-        with: 
-           path: '${{steps.versionvalue.outputs.PATH}}'
-           prop_path: 'projectVersion'
-           if: github.ref == 'refs/heads/main'
-      - run: echo ${{steps.version.outputs.prop}}
-      - name: Version Incrment
-        env:
-            VERSION: ${{steps.version.outputs.prop}}
-        run: |
-               $v= [version] "${{steps.version.outputs.prop}}"
-               $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1),"${{ steps.current-time.outputs.formattedTime }}"
-               $VERSION=[string]$newversion
-               echo $VERSION
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.0
+        with:	 
+             name: ProjectFiles
+             path: ${{ github.workspace }}/**
+             if-no-files-found: error
+             retention-days: 90
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2.0.9
+        with:
+            name: 'ProjectFiles'
+            path: 'ProjectFiles'
