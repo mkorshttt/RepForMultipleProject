@@ -20,11 +20,13 @@ jobs:
          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
         run: |
           echo ${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}} 
+          echo "::set-output name=version::$(echo '${{env.MAJOR}}.${{env.MINOR}}.${{env.BUILD}}.${{env.F_TIME}}')"
           
           
           
           
       - uses: actions/checkout@v2
+        id: vars
       - name: create temp file
         run: |
                 $files = Get-ChildItem -Path ${{ github.workspace }}\MyProject -Recurse -Filter project.json -File
@@ -45,15 +47,7 @@ jobs:
                  Expand-Archive -LiteralPath "C:\\uipathcli\\cli.Zip" -DestinationPath "C:\\uipathcli"; 
                  
                  
-                 
-                 
-                 
-      - name: set env
-        id: vars
-        run: |
-                echo "::set-output name=version::$(echo '${{env.major}}.${{env.minor}}.${{github.run_number}}')"  
-                               
-                
+           
                 
       - name: shellcheck 
         shell: cmd
@@ -80,11 +74,4 @@ jobs:
         with:
             name: 'samplerepository'
             path: 'samplerepository'
-            
-            
-            
-            
-      - name: shelldeploy 
-        shell: cmd
-        run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\Newprocess.${{steps.vars.outputs.version}}.nupkg" "https://cloud.uipath.com" "$env.TenantName" -t $env.UserKey -a $env.AccountName
+
