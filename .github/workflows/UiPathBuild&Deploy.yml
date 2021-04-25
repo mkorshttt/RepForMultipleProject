@@ -34,11 +34,6 @@ jobs:
              path: ${{ github.workspace }}/**
              if-no-files-found: error
              retention-days: 2
-     
- DeployCloudOrchestrator:
-    runs-on: windows-latest
-    needs: BuildandDeploy
-    steps:  
       - name: Download Artifacts
         uses: actions/download-artifact@v2.0.9
         with:
@@ -47,13 +42,11 @@ jobs:
       - name: DeployOrchestrator
         shell: cmd
         run: |
-               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\ProjectFiles\MyProject" "https://cloud.uipath.com" "Sukesh.Vanarasi" -t hxYUcqVN1hH6x0EphHBEmKwiAzSXpQ7_UVLsKOQ5cRfqe -a Sukesh.Vanarasi
-
-           
-
+               call "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\ProjectFiles\MyProject\" "https://cloud.uipath.com" "Sukesh.Vanarasi" -t hxYUcqVN1hH6x0EphHBEmKwiAzSXpQ7_UVLsKOQ5cRfqe -a Sukesh.Vanarasi
+     
  remove-old-artifacts:
     runs-on: windows-latest
-    needs: DeployCloudOrchestrator
+    needs: BuildandDeploy
     timeout-minutes: 10
 
     steps:
