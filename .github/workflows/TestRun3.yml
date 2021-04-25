@@ -55,8 +55,8 @@ jobs:
                           $newversion= "{0}.{1}.{2}.{3}" -f $v.Major, $v.Minor, ($v.Build+1),"${{ steps.current-time.outputs.formattedTime }}"
                           $VERSION=[string]$newversion
                           echo $VERSION
+                          echo $package.Name
                           & "C:\\uipathcli\\lib\\net461\\uipcli.exe" package pack "$package" -o "${{ github.workspace }}" -v $VERSION -l en-US
-                          & "C:\\uipathcli\\lib\\net461\\uipcli.exe" package deploy "${{ github.workspace }}\Newprocess.${{steps.vars.outputs.version}}.nupkg" "https://cloud.uipath.com" "Sukesh.Vanarasi" -t LRRgkxv9_z_-TyYE6kZSEOicrqoDYSy-ssFXo2TI8yEAO -a Sukesh.Vanarasi
                        }    
 
       - name: Upload a Build Artifact
